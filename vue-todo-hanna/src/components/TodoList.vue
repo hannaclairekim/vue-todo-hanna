@@ -21,6 +21,7 @@ export default {
     methods: {
         removeTodo: function(item, index) {
             this.todoItems.splice(index, 1);
+            localStorage.removeItem(item);
         }
     },
     created: function(){
