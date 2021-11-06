@@ -16,12 +16,12 @@ import TodoInput from './components/TodoInput.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: []
     }
   },
-  created: function(){
+  created(){
       if(localStorage.length > 0) {
           for (let i=0; i<localStorage.length; i++) {
               if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
@@ -38,23 +38,23 @@ export default {
     'TodoFooter': TodoFooter
   },
   methods: {
-    addOneItem: function(todoItem) {
+    addOneItem(todoItem) {
       const obj = {completed: false, item: todoItem};
 				// 저장하는 로직
 			localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOneItem: function(items, index){
+    removeOneItem(items, index){
       localStorage.removeItem(items.item);
       this.todoItems.splice(index, 1);
     },
-    toggleOneItem: function(items, index){
+    toggleOneItem(items, index){
       // items.completed = !items.completed;
       this.items[index].completed = !this.items[index].completed;
       localStorage.removeItem(items.item);
       localStorage.setItem(items.item, JSON.stringify(items));
     },
-    clearAllItem: function(){
+    clearAllItem(){
       localStorage.clear();
       this.todoItems = [];
     }
