@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" 
-          v-on:removeItem="removeOneItem" 
-          v-on:toggleItem="toggleOneItem"></TodoList>
-    <TodoFooter v-on:removeAllItem="clearAllItem"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList v-bind:propsdata="todoItems"></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -21,16 +19,6 @@ export default {
       todoItems: []
     }
   },
-  created(){
-      if(localStorage.length > 0) {
-          for (let i=0; i<localStorage.length; i++) {
-              if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-                // this.todoItems.push(localStorage.key(i));
-                  this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-              }
-          }
-      }
-  },
   components: {
     TodoHeader,
     TodoInput,
@@ -38,26 +26,17 @@ export default {
     TodoFooter
   },
   methods: {
-    addOneItem(todoItem) {
-      const obj = {completed: false, item: todoItem};
-				// 저장하는 로직
-			localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(items, index){
-      localStorage.removeItem(items.item);
-      this.todoItems.splice(index, 1);
-    },
-    toggleOneItem(items, index){
-      // items.completed = !items.completed;
-      this.items[index].completed = !this.items[index].completed;
-      localStorage.removeItem(items.item);
-      localStorage.setItem(items.item, JSON.stringify(items));
-    },
-    clearAllItem(){
-      localStorage.clear();
-      this.todoItems = [];
-    }
+    // store 의 mutations와 같다.
+    // toggleOneItem(items, index){
+    //   // items.completed = !items.completed;
+    //   this.items[index].completed = !this.items[index].completed;
+    //   localStorage.removeItem(items.item);
+    //   localStorage.setItem(items.item, JSON.stringify(items));
+    // },
+    // clearAllItem(){
+    //   localStorage.clear();
+    //   this.todoItems = [];
+    // }
   }
 }
 </script>
